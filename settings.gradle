@@ -1,2 +1,3 @@
 rootProject.name='FFmpeg-Invoker'
 include ':app'
+include ':library'
