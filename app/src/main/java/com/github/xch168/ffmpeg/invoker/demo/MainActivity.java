@@ -60,4 +60,8 @@ public class MainActivity extends AppCompatActivity {
         }
         return configInfoBuilder.toString();
     }
+
+    public void toTestFFmpeg(View view) {
+        FFmpegTestActivity.open(this);
+    }
 }
