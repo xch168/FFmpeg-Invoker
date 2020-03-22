@@ -18,11 +18,13 @@
 FFMPEG_PATH=.
 NDK_PATH=/Users/xch/Library/Android/sdk/ndk/21.0.5935234
 HOST_PLATFORM="darwin-x86_64"
+TOOLCHAIN_PREFIX="${NDK_PATH}/toolchains/llvm/prebuilt/${HOST_PLATFORM}/bin"
 
 ENABLED_ENCODERS=(h264 png)
 ENABLED_DECODERS=(h264 png)
 ENABLED_MUXERS=(h264 mp4 3gp webm matroska avi image2)
 ENABLED_DEMUXERS=(webm matroska concat)
+ENABLED_PROTOCOLS=(file)
 
 COMMON_OPTIONS="
     --target-os=android
@@ -30,7 +32,6 @@ COMMON_OPTIONS="
     --enable-shared
     --disable-doc
     --disable-programs
-    --disable-everything
     --disable-avdevice
     --disable-postproc
     --disable-symver
@@ -40,7 +41,7 @@ COMMON_OPTIONS="
     --enable-avresample
     --enable-swresample
     "
-TOOLCHAIN_PREFIX="${NDK_PATH}/toolchains/llvm/prebuilt/${HOST_PLATFORM}/bin"
+
 for encoder in "${ENABLED_ENCODERS[@]}"
 do
     COMMON_OPTIONS="${COMMON_OPTIONS} --enable-encoder=${encoder}"
@@ -57,8 +58,13 @@ for demuxer in "${ENABLED_DEMUXERS[@]}"
 do
     COMMON_OPTIONS="${COMMON_OPTIONS} --enable-demuxer=${demuxer}"
 done
-cd "${FFMPEG_PATH}"
- (git -C ffmpeg pull || git clone git://source.ffmpeg.org/ffmpeg ffmpeg)
+for protocol in "${ENABLED_PROTOCOLS[@]}"
+do
+    COMMON_OPTIONS="${COMMON_OPTIONS} --enable-protocol=${protocol}"
+done
+
+cd "${FFMPEG_EXT_PATH}"
+(git -C ffmpeg pull || git clone git://source.ffmpeg.org/ffmpeg ffmpeg)
 cd ffmpeg
 git checkout release/4.2
 
