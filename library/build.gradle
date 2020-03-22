@@ -1,4 +1,7 @@
 apply plugin: 'com.android.library'
+apply plugin: 'com.novoda.bintray-release'
+apply from: rootProject.file("secret.gradle")
+
 
 android {
     compileSdkVersion 29
@@ -49,4 +52,16 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+}
+
+publish {
+    userOrg = 'xch168'            // bintray.com用户名
+    groupId = 'com.github.xch168' // jcenter上的路径
+    artifactId = 'FFmpeg-Invoker' // 项目名称
+    publishVersion = '0.0.1'      // 版本号
+    desc = 'Invoker ffmpeg on Android' // 描述
+    website = 'https://github.com/xch168/FFmpeg-Invoker' // 项目地址
+
+    bintrayUser = bintray_user // bintray.com的用户名
+    bintrayKey = bintray_key   // bintray.com的API key
 }
