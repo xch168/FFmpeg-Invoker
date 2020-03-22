@@ -4879,6 +4879,12 @@ void ffmpeg_cancel()
 
 int ffmpeg_exec(int argc, char **argv)
 {
+    if (use_log_report) {
+        av_log_set_callback(ffp_log_callback_report);
+    } else {
+        av_log_set_callback(ffp_log_callback_brief);
+    }
+
     int i, ret;
     BenchmarkTimeStamps ti;
 
