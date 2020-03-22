@@ -12,6 +12,9 @@ Java_com_github_xch168_ffmpeg_invoker_FFmpegInvoker_exec(JNIEnv *, jclass, jint,
 JNIEXPORT void JNICALL
 Java_com_github_xch168_ffmpeg_invoker_FFmpegInvoker_exit(JNIEnv *, jclass);
 
+JNIEXPORT jstring JNICALL
+Java_com_github_xch168_ffmpeg_invoker_FFmpegInvoker_getConfigInfo(JNIEnv *, jclass);
+
 #ifdef __cplusplus
 }
 #endif

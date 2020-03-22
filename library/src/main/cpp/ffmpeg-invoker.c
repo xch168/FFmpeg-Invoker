@@ -100,3 +100,10 @@ Java_com_github_xch168_ffmpeg_invoker_FFmpegInvoker_exit(JNIEnv *env, jclass typ
     m_clazz = (*env)->NewGlobalRef(env, type);
     ffmpeg_thread_cancel();
 }
+
+JNIEXPORT jstring JNICALL
+Java_com_github_xch168_ffmpeg_invoker_FFmpegInvoker_getConfigInfo(JNIEnv *env, jclass clazz) {
+    char info[10000] = {0};
+    sprintf(info, "%s\n", avcodec_configuration());
+    return (*env)->NewStringUTF(env, info);
+}
