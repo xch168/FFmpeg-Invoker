@@ -15,12 +15,56 @@
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="20dp"/>
 
+    <Button
+        android:id="@+id/btn_config"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/tv_cpu_abi"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginTop="20dp"
+        android:textAllCaps="false"
+        android:text="Config"
+        android:onClick="getFFmpegConfigInfo"/>
+
+    <Button
+        android:id="@+id/btn_codec"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@+id/btn_config"
+        app:layout_constraintLeft_toRightOf="@+id/btn_config"
+        android:layout_marginLeft="10dp"
+        android:textAllCaps="false"
+        android:text="Codec"
+        android:onClick="getFFmpegCodecInfo"/>
+
+    <Button
+        android:id="@+id/btn_format"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@+id/btn_config"
+        app:layout_constraintLeft_toRightOf="@+id/btn_codec"
+        android:layout_marginLeft="10dp"
+        android:textAllCaps="false"
+        android:text="Format"
+        android:onClick="getFFmpegFormatInfo"/>
+
+    <Button
+        android:id="@+id/btn_filter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@+id/btn_config"
+        app:layout_constraintLeft_toRightOf="@+id/btn_format"
+        android:layout_marginLeft="10dp"
+        android:textAllCaps="false"
+        android:text="Filter"
+        android:onClick="getFFmpegFilterInfo"/>
+
     <TextView
         android:id="@+id/tv_config_info"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_cpu_abi"
+        app:layout_constraintTop_toBottomOf="@+id/btn_config"
         app:layout_constraintBottom_toBottomOf="parent"
         android:scrollbars="vertical"
         android:layout_marginTop="20dp"/>

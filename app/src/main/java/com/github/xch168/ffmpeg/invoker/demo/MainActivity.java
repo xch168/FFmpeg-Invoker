@@ -3,6 +3,7 @@ package com.github.xch168.ffmpeg.invoker.demo;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
+import android.view.View;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,6 +12,7 @@ import com.github.xch168.ffmpeg.invoker.FFmpegInvoker;
 
 public class MainActivity extends AppCompatActivity {
 
+    private TextView mConfigView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,9 +22,9 @@ public class MainActivity extends AppCompatActivity {
         TextView tv = findViewById(R.id.tv_cpu_abi);
         tv.setText("CPU_ABI: " + getCpuAbi());
 
-        TextView configView = findViewById(R.id.tv_config_info);
-        configView.setMovementMethod(ScrollingMovementMethod.getInstance());
-        configView.setText(getConfigInfo());
+        mConfigView = findViewById(R.id.tv_config_info);
+        mConfigView.setMovementMethod(ScrollingMovementMethod.getInstance());
+
     }
 
     private String getCpuAbi() {
@@ -31,6 +33,22 @@ public class MainActivity extends AppCompatActivity {
         } else {
             return Build.SUPPORTED_ABIS[0];
         }
+    }
+
+    public void getFFmpegConfigInfo(View view) {
+        mConfigView.setText(getConfigInfo());
+    }
+
+    public void getFFmpegCodecInfo(View view) {
+        mConfigView.setText(FFmpegInvoker.getAVCodecInfo());
+    }
+
+    public void getFFmpegFormatInfo(View view) {
+        mConfigView.setText(FFmpegInvoker.getAVFormatInfo());
+    }
+
+    public void getFFmpegFilterInfo(View view) {
+        mConfigView.setText(FFmpegInvoker.getAVFilterInfo());
     }
 
     private String getConfigInfo() {
@@ -42,5 +60,4 @@ public class MainActivity extends AppCompatActivity {
         }
         return configInfoBuilder.toString();
     }
-
 }

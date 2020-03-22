@@ -15,6 +15,15 @@ Java_com_github_xch168_ffmpeg_invoker_FFmpegInvoker_exit(JNIEnv *, jclass);
 JNIEXPORT jstring JNICALL
 Java_com_github_xch168_ffmpeg_invoker_FFmpegInvoker_getConfigInfo(JNIEnv *, jclass);
 
+JNIEXPORT jstring JNICALL
+Java_com_github_xch168_ffmpeg_invoker_FFmpegInvoker_getAVCodecInfo(JNIEnv *env, jclass clazz);
+
+JNIEXPORT jstring JNICALL
+Java_com_github_xch168_ffmpeg_invoker_FFmpegInvoker_getAVFormatInfo(JNIEnv *, jclass);
+
+JNIEXPORT jstring JNICALL
+Java_com_github_xch168_ffmpeg_invoker_FFmpegInvoker_getAVFilterInfo(JNIEnv *, jclass);
+
 #ifdef __cplusplus
 }
 #endif

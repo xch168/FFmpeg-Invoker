@@ -19,6 +19,9 @@ public class FFmpegInvoker {
     public static native void exit();
 
     public static native String getConfigInfo();
+    public static native String getAVCodecInfo();
+    public static native String getAVFormatInfo();
+    public static native String getAVFilterInfo();
 
     public static void exec(String[] cmds, long duration, Callback listener) {
         sCallback = listener;
