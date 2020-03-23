@@ -6,7 +6,7 @@ FFmpeg invoker
 implementation 'com.github.xch168:ffmpeg-invoker:0.0.1'
 ```
 The Library supports three cpu abi: `armeabi-v7a`, `arm64-v8a`, `x86`.
-If you don't an x86 lib, you can exclude it according to the following configuration:
+If you don't need x86 lib, you can exclude it according to the following configuration:
 ```groovy
 android {
     ...
