@@ -56,10 +56,10 @@ static void ffmpeg_callback(int ret) {
     (*jvm)->DetachCurrentThread(jvm);
 }
 
-void ffmpeg_progress(float progress) {
+void ffmpeg_progress(float percent) {
     JNIEnv *env;
     (*jvm)->AttachCurrentThread(jvm, (void **) &env, NULL);
-    callJavaMethodProgress(env, m_clazz,progress);
+    callJavaMethodProgress(env, m_clazz,percent);
     (*jvm)->DetachCurrentThread(jvm);
 }
 

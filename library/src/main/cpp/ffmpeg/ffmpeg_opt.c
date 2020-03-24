@@ -111,6 +111,8 @@ int filter_nbthreads = 0;
 int filter_complex_nbthreads = 0;
 int vstats_version = 2;
 
+int64_t duration = 0;
+
 
 static int intra_only         = 0;
 static int file_overwrite     = 0;
@@ -1103,11 +1105,13 @@ static int open_input_file(OptionsContext *o, const char *filename)
     /* open the input file with generic avformat function */
     err = avformat_open_input(&ic, filename, file_iformat, &o->g->format_opts);
     if (err < 0) {
+        duration = 0;
         print_error(filename, err);
         if (err == AVERROR_PROTOCOL_NOT_FOUND)
             av_log(NULL, AV_LOG_ERROR, "Did you mean file:%s?\n", filename);
         exit_program(1);
     }
+    duration = ic->duration + (ic->duration <= INT64_MAX - 5000 ? 5000 : 0);
     if (scan_all_pmts_set)
         av_dict_set(&o->g->format_opts, "scan_all_pmts", NULL, AV_DICT_MATCH_CASE);
     remove_avoptions(&o->g->format_opts, o->g->codec_opts);

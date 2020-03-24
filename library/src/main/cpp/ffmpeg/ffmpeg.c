@@ -1671,7 +1671,8 @@ static void print_report(int is_last_report, int64_t timer_start, int64_t cur_ti
     const char *hours_sign;
     int ret;
     float t;
-    float mss;
+    int64_t current_time;
+    float percent;
 
     if (!print_stats && !is_last_report && !progress_avio)
         return;
@@ -1771,9 +1772,9 @@ static void print_report(int is_last_report, int64_t timer_start, int64_t cur_ti
             nb_frames_drop += ost->last_dropped;
     }
 
+    current_time = FFABS(pts);
     secs = FFABS(pts) / AV_TIME_BASE;
     us = FFABS(pts) % AV_TIME_BASE;
-    mss = secs + ((float) us / AV_TIME_BASE);
     mins = secs / 60;
     secs %= 60;
     hours = mins / 60;
@@ -1783,7 +1784,8 @@ static void print_report(int is_last_report, int64_t timer_start, int64_t cur_ti
     bitrate = pts && total_size >= 0 ? total_size * 8 / (pts / 1000.0) : -1;
     speed = t != 0.0 ? (double)pts / AV_TIME_BASE / t : -1;
 
-    ffmpeg_progress(mss);
+    percent = duration > 0 ? (float)current_time / duration : 0;
+    ffmpeg_progress(percent);
 
     if (total_size < 0) av_bprintf(&buf, "size=N/A time=");
     else                av_bprintf(&buf, "size=%8.0fkB time=", total_size / 1024.0);

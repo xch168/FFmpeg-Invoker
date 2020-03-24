@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Looper;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -19,6 +20,7 @@ public class FFmpegTestActivity extends AppCompatActivity {
     private ProgressDialog mProgressDialog;
 
     private String videoPath = "/storage/emulated/0/DCIM/Camera/fb639313f7f3d58cc793f20095439c88.mp4";
+    private String videoPath2 = "/storage/emulated/0/4399YouPai/Record/LYL_20200316_155722.mp4";
 
     private FFmpegInvoker.Callback mCallback = new FFmpegInvoker.Callback() {
         @Override
@@ -38,8 +40,8 @@ public class FFmpegTestActivity extends AppCompatActivity {
         }
 
         @Override
-        public void onProgress(float progress) {
-            updateProgress((int) progress);
+        public void onProgress(float percent) {
+            updateProgress(percent);
         }
     };
 
@@ -77,22 +79,22 @@ public class FFmpegTestActivity extends AppCompatActivity {
         }
     }
 
-    private void updateProgress(int percent) {
-        mProgressDialog.setProgress(percent);
+    private void updateProgress(float percent) {
+        mProgressDialog.setProgress((int) (percent * mProgressDialog.getMax()));
     }
 
     public void cutVideo(View view) {
         showProgress();
         String savePath = getSaveDir() + "out.mp4";
-        String cmd = "ffmpeg -y -ss 1 -t 300 -accurate_seek -i " + videoPath + " -codec copy " + savePath;
-        FFmpegInvoker.exec(cmd.split(" "), 100, mCallback);
+        String cmd = "ffmpeg -y -ss 1 -t 500 -accurate_seek -i " + videoPath2 + " -codec copy " + savePath;
+        FFmpegInvoker.exec(cmd.split(" "), mCallback);
     }
 
     public void extractFrame(View view) {
         showProgress();
         String savePath = getSaveDir() + "out.png";
         String cmd = "ffmpeg -ss 10 -i " + videoPath + " -vframes 1 -y " + savePath;
-        FFmpegInvoker.exec(cmd.split(" "), 100, mCallback);
+        FFmpegInvoker.exec(cmd.split(" "), mCallback);
     }
 
     public static String getSaveDir() {

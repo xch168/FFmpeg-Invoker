@@ -29,4 +29,4 @@ Java_com_github_xch168_ffmpeg_invoker_FFmpegInvoker_getAVFilterInfo(JNIEnv *, jc
 #endif
 #endif
 
-void ffmpeg_progress(float progress);
+void ffmpeg_progress(float percent);

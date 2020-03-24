@@ -13,7 +13,6 @@ public class FFmpegInvoker {
     }
 
     private static Callback sCallback;
-    private static long sDuration;
 
     public static native int exec(int argc, String[] argv);
     public static native void exit();
@@ -23,9 +22,8 @@ public class FFmpegInvoker {
     public static native String getAVFormatInfo();
     public static native String getAVFilterInfo();
 
-    public static void exec(String[] cmds, long duration, Callback listener) {
+    public static void exec(String[] cmds, Callback listener) {
         sCallback = listener;
-        sDuration = duration;
 
         StringBuilder cmdBuilder = new StringBuilder();
         for (String cmd : cmds)
@@ -44,7 +42,7 @@ public class FFmpegInvoker {
     public static void onExecuted(int ret) {
         if (sCallback != null) {
             if (ret == 0) {
-                sCallback.onProgress(sDuration);
+                sCallback.onProgress(1);
                 sCallback.onSuccess();
             } else {
                 sCallback.onFailure();
@@ -55,17 +53,15 @@ public class FFmpegInvoker {
     /**
      * FFmpeg执行进度回调，由C代码调用
      */
-    public static void onProgress(float progress) {
+    public static void onProgress(float percent) {
         if (sCallback != null) {
-            if (sDuration != 0) {
-                sCallback.onProgress(progress / (sDuration / 1000) * 0.95f);
-            }
+            sCallback.onProgress(percent);
         }
     }
 
     public interface Callback {
         void onSuccess();
         void onFailure();
-        void onProgress(float progress);
+        void onProgress(float percent);
     }
 }

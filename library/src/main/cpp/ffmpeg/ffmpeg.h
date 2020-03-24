@@ -611,6 +611,8 @@ extern int filter_nbthreads;
 extern int filter_complex_nbthreads;
 extern int vstats_version;
 
+extern int64_t duration;
+
 extern const AVIOInterruptCB int_cb;
 
 extern const OptionDef options[];
