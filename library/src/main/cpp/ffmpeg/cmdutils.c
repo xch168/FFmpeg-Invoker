@@ -556,7 +556,7 @@ int opt_default(void *optctx, const char *opt, const char *arg)
     const char *p;
     const AVClass *cc = avcodec_get_class(), *fc = avformat_get_class();
 #if CONFIG_AVRESAMPLE
-    const AVClass *rc = avresample_get_class();
+//    const AVClass *rc = avresample_get_class();
 #endif
 #if CONFIG_SWSCALE
     const AVClass *sc = sws_get_class();
@@ -628,11 +628,11 @@ int opt_default(void *optctx, const char *opt, const char *arg)
     }
 #endif
 #if CONFIG_AVRESAMPLE
-    if ((o=opt_find(&rc, opt, NULL, 0,
-                       AV_OPT_SEARCH_CHILDREN | AV_OPT_SEARCH_FAKE_OBJ))) {
-        av_dict_set(&resample_opts, opt, arg, FLAGS);
-        consumed = 1;
-    }
+//    if ((o=opt_find(&rc, opt, NULL, 0,
+//                       AV_OPT_SEARCH_CHILDREN | AV_OPT_SEARCH_FAKE_OBJ))) {
+//        av_dict_set(&resample_opts, opt, arg, FLAGS);
+//        consumed = 1;
+//    }
 #endif
 
     if (consumed)
@@ -1137,7 +1137,7 @@ static void print_all_libs_info(int flags, int level)
     PRINT_LIB_INFO(avformat,   AVFORMAT,   flags, level);
     PRINT_LIB_INFO(avdevice,   AVDEVICE,   flags, level);
     PRINT_LIB_INFO(avfilter,   AVFILTER,   flags, level);
-    PRINT_LIB_INFO(avresample, AVRESAMPLE, flags, level);
+//    PRINT_LIB_INFO(avresample, AVRESAMPLE, flags, level);
     PRINT_LIB_INFO(swscale,    SWSCALE,    flags, level);
     PRINT_LIB_INFO(swresample, SWRESAMPLE, flags, level);
     PRINT_LIB_INFO(postproc,   POSTPROC,   flags, level);

@@ -24,81 +24,22 @@ add_library( ffmpeg-invoker # 库名称
         SHARED         # 库类型
         ${SRC})        # 编译进库的源码)
 
-# 添加libavcodec.so库
-add_library( avcodec
+# 添加libffmpeg.so库
+add_library( ffmpeg
         SHARED
         IMPORTED )
-# 指定libavcodec.so库的位置
-set_target_properties( avcodec
+# 指定libffmpeg.so库的位置
+set_target_properties( ffmpeg
         PROPERTIES IMPORTED_LOCATION
-        ${distribution_DIR}/libavcodec.so )
+        ${distribution_DIR}/libffmpeg.so )
 
-# libavfilter.so库
-add_library( avfilter
-        SHARED
-        IMPORTED )
-# libavfilter.so库的位置
-set_target_properties( avfilter
-        PROPERTIES IMPORTED_LOCATION
-        ${distribution_DIR}/libavfilter.so )
-
-# 添加libavformat.so库
-add_library( avformat
-        SHARED
-        IMPORTED )
-# 指定libavformat.so库的位置
-set_target_properties( avformat
-        PROPERTIES IMPORTED_LOCATION
-        ${distribution_DIR}/libavformat.so )
-
-# 添加libavresample.so库
-add_library( avresample
-        SHARED
-        IMPORTED )
-# 指定libavresample.so库的位置
-set_target_properties( avresample
-        PROPERTIES IMPORTED_LOCATION
-        ${distribution_DIR}/libavresample.so )
-
-# libavutil.so库
-add_library( avutil
-        SHARED
-        IMPORTED )
-# 指定libavutil.so库的位置
-set_target_properties( avutil
-        PROPERTIES IMPORTED_LOCATION
-        ${distribution_DIR}/libavutil.so )
-
-# libswresample.so库
-add_library( swresample
-        SHARED
-        IMPORTED )
-# 指定libswresample.so库的位置
-set_target_properties( swresample
-        PROPERTIES IMPORTED_LOCATION
-        ${distribution_DIR}/libswresample.so )
-
-# libswscale.so库
-add_library( swscale
-        SHARED
-        IMPORTED )
-# 指定libswscale.so库的位置
-set_target_properties( swscale
-        PROPERTIES IMPORTED_LOCATION
-        ${distribution_DIR}/libswscale.so )
 
 find_library( log-lib
         log )
 
 
 target_link_libraries( ffmpeg-invoker
-        avcodec
-        avfilter
-        avformat
-        avresample
-        swresample
-        swscale
-        avutil
+        ffmpeg
         -landroid     # native_window
         -ljnigraphics # bitmap
         -lOpenSLES    # openSLES
