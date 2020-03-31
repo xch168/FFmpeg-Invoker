@@ -21,15 +21,16 @@ HOST_PLATFORM="darwin-x86_64"
 TOOLCHAIN_PREFIX="${NDK_PATH}/toolchains/llvm/prebuilt/${HOST_PLATFORM}/bin"
 GCC_PREFIX="${NDK_PATH}/toolchains/llvm/prebuilt/${HOST_PLATFORM}/lib/gcc"
 
-ENABLED_ENCODERS=(h264 png)
-ENABLED_DECODERS=(h264 mpeg4 png)
-ENABLED_MUXERS=(h264 mp4 3gp webm matroska avi image2)
-ENABLED_DEMUXERS=(webm matroska concat)
+ENABLED_ENCODERS=(png)
+ENABLED_DECODERS=(h264 png)
+ENABLED_MUXERS=(h264 mp4 matroska image2)
+ENABLED_DEMUXERS=(matroska concat rtsp)
 ENABLED_PROTOCOLS=(file)
-ENABLED_FILTERS=(scale)
+ENABLED_FILTERS=(scale format trim null)
 
 COMMON_OPTIONS="
     --target-os=android
+    --enable-small
     --enable-static
     --disable-shared
     --disable-doc
@@ -37,6 +38,7 @@ COMMON_OPTIONS="
     --disable-programs
     --disable-protocols
     --disable-parsers
+    --disable-filters
     --disable-avdevice
     --disable-postproc
     --disable-symver
@@ -97,7 +99,7 @@ PREFIX="android-libs/armeabi-v7a"
     --extra-ldflags="-Wl,--fix-cortex-a8" \
     --extra-ldexeflags=-pie \
     ${COMMON_OPTIONS}
-make -j4
+make -j8
 make install
 ${TOOLCHAIN_PREFIX}/arm-linux-androideabi-ld \
     -rpath-link=$SYSROOT/usr/lib \
@@ -148,7 +150,7 @@ PREFIX="android-libs/x86"
     --extra-ldexeflags=-pie \
     --disable-asm \
     ${COMMON_OPTIONS}
-make -j4
+make -j8
 make install
 ${TOOLCHAIN_PREFIX}/i686-linux-android-ld \
     -rpath-link=$SYSROOT/usr/lib \
