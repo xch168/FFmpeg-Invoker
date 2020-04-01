@@ -18,8 +18,17 @@ android {
 
 ## Usage
 ```java
-String cmd = "ffmpeg -y -ss 1 -t 100 -accurate_seek -i " + videoPath + " -codec copy " + savePath;
-FFmpegInvoker.exec(cmd.split(" "), 100, new FFmpegInvoker.Callback() {
+// ffmpeg -y -ss 1 -t 100 -accurate_seek -i + videoPath + -codec copy + savePath
+// you can use FFmpegCmd to build an ffmpeg command
+FFmpegCmd cmd = new FFmpegCmd();
+cmd.append("-ss").append(1);
+cmd.append("-t").append(500);
+cmd.append("-accurate_seek");
+cmd.append("-i").append(videoPath2);
+cmd.append("-codec").append("copy");
+cmd.append(savePath);
+
+FFmpegInvoker.exec(cmd.build(), new FFmpegInvoker.Callback() {
     @Override
     public void onSuccess() {
 
@@ -31,7 +40,7 @@ FFmpegInvoker.exec(cmd.split(" "), 100, new FFmpegInvoker.Callback() {
     }
 
     @Override
-    public void onProgress(float progress) {
+    public void onProgress(float percent) {
 
     }
 });

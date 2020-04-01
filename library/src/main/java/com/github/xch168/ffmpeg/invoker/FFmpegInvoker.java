@@ -22,16 +22,11 @@ public class FFmpegInvoker {
     public static native String getAVFormatInfo();
     public static native String getAVFilterInfo();
 
-    public static void exec(String[] cmds, Callback listener) {
+    public static void exec(String cmd, Callback listener) {
         sCallback = listener;
 
-        StringBuilder cmdBuilder = new StringBuilder();
-        for (String cmd : cmds)
-        {
-            cmdBuilder.append(" ").append(cmd);
-        }
-
-        Log.i(TAG, "ffmpeg cmd:" + cmdBuilder.toString());
+        String[] cmds = cmd.split(" ");
+        Log.i(TAG, "ffmpeg cmd:" + cmd);
 
         exec(cmds.length, cmds);
     }

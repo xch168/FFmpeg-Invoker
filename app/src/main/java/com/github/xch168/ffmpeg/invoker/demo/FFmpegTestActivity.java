@@ -1,17 +1,17 @@
 package com.github.xch168.ffmpeg.invoker.demo;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Looper;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.github.xch168.ffmpeg.invoker.FFmpegCmd;
 import com.github.xch168.ffmpeg.invoker.FFmpegInvoker;
 
 import java.io.File;
@@ -86,15 +86,28 @@ public class FFmpegTestActivity extends AppCompatActivity {
     public void cutVideo(View view) {
         showProgress();
         String savePath = getSaveDir() + "out.mp4";
-        String cmd = "ffmpeg -y -ss 1 -t 500 -accurate_seek -i " + videoPath2 + " -codec copy " + savePath;
-        FFmpegInvoker.exec(cmd.split(" "), mCallback);
+        FFmpegCmd cmd = new FFmpegCmd();
+        cmd.append("-ss").append(1);
+        cmd.append("-t").append(500);
+        cmd.append("-accurate_seek");
+        cmd.append("-i").append(videoPath2);
+        cmd.append("-codec").append("copy");
+        cmd.append(savePath);
+
+//        String cmd = "ffmpeg -y -ss 1 -t 500 -accurate_seek -i " + videoPath2 + " -codec copy " + savePath;
+        FFmpegInvoker.exec(cmd.build(), mCallback);
     }
 
     public void extractFrame(View view) {
         showProgress();
         String savePath = getSaveDir() + "out.png";
-        String cmd = "ffmpeg -ss 10 -i " + videoPath + " -vframes 1 -y " + savePath;
-        FFmpegInvoker.exec(cmd.split(" "), mCallback);
+        FFmpegCmd cmd = new FFmpegCmd();
+        cmd.append("-ss").append(10);
+        cmd.append("-i").append(videoPath);
+        cmd.append("-vframes").append(1);
+        cmd.append(savePath);
+//        String cmd = "ffmpeg -ss 10 -i " + videoPath + " -vframes 1 -y " + savePath;
+        FFmpegInvoker.exec(cmd.build(), mCallback);
     }
 
     public static String getSaveDir() {
