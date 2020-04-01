@@ -1,0 +1,1 @@
+gradlew clean build generatePomFileForReleasePublication bintrayUpload -PdryRun=false

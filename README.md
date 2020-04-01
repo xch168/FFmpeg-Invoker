@@ -3,7 +3,7 @@ FFmpeg invoker
 
 ## Download
 ```groovy
-implementation 'com.github.xch168:ffmpeg-invoker:0.0.1'
+implementation 'com.github.xch168:ffmpeg-invoker:0.0.2'
 ```
 The Library supports three cpu abi: `armeabi-v7a`, `arm64-v8a`, `x86`.
 If you don't need x86 lib, you can exclude it according to the following configuration:

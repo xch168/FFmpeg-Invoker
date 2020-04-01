@@ -58,7 +58,7 @@ publish {
     userOrg = 'xch168'            // bintray.com用户名
     groupId = 'com.github.xch168' // jcenter上的路径
     artifactId = 'ffmpeg-invoker' // 项目名称
-    publishVersion = '0.0.1'      // 版本号
+    publishVersion = '0.0.2'      // 版本号
     desc = 'Invoker ffmpeg on Android' // 描述
     website = 'https://github.com/xch168/FFmpeg-Invoker' // 项目地址
 
