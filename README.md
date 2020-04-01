@@ -18,8 +18,8 @@ android {
 
 ## Usage
 ```java
-// ffmpeg -y -ss 1 -t 100 -accurate_seek -i + videoPath + -codec copy + savePath
 // you can use FFmpegCmd to build an ffmpeg command
+// For example: ffmpeg -y -ss 1 -t 100 -accurate_seek -i + videoPath + -codec copy + savePath
 FFmpegCmd cmd = new FFmpegCmd();
 cmd.append("-ss").append(1);
 cmd.append("-t").append(500);
