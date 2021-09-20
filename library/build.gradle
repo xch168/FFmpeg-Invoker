@@ -38,7 +38,7 @@ android {
         }
     }
 
-    ndkVersion = "21.0.5935234"
+    ndkVersion = "21.0.6113669"
 
     sourceSets.main {
         jniLibs.srcDir 'libs'
