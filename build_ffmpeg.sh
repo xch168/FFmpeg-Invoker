@@ -14,12 +14,18 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+FFMPEG_PATH=./ffmpeg
+FFMPEG_LIB_PATH="$(pwd)/ffmpeg-libs"
 
-FFMPEG_PATH=.
-NDK_PATH=/Users/xch/Library/Android/sdk/ndk/21.0.5935234
+USER_HOME=$(eval echo ~$user)
+NDK_PATH="$USER_HOME/Library/Android/sdk/ndk/21.0.6113669"
 HOST_PLATFORM="darwin-x86_64"
 TOOLCHAIN_PREFIX="${NDK_PATH}/toolchains/llvm/prebuilt/${HOST_PLATFORM}/bin"
 GCC_PREFIX="${NDK_PATH}/toolchains/llvm/prebuilt/${HOST_PLATFORM}/lib/gcc"
+
+git -C ffmpeg pull || git clone git://source.ffmpeg.org/ffmpeg ffmpeg
+cd ${FFMPEG_PATH}
+git checkout release/4.2
 
 ENABLED_ENCODERS=(png)
 ENABLED_DECODERS=(h264 png)
@@ -80,14 +86,10 @@ COMMON_MERGE_OPTIONS="
     -lc -lm -lz -ldl -llog --dynamic-linker=/system/bin/linker
 "
 
-cd "${FFMPEG_PATH}"
-# (git -C ffmpeg pull || git clone git://source.ffmpeg.org/ffmpeg ffmpeg)
-cd ffmpeg
-git checkout release/4.2
-
 # armeabi-v7a
 SYSROOT="${NDK_PATH}/platforms/android-16/arch-arm"
-PREFIX="android-libs/armeabi-v7a"
+PREFIX="${FFMPEG_LIB_PATH}/armeabi-v7a"
+
 ./configure \
     --prefix=$PREFIX \
     --arch=arm \
@@ -114,7 +116,7 @@ make clean
 
 # arm64-v8a
 SYSROOT="${NDK_PATH}/platforms/android-21/arch-arm64"
-PREFIX="android-libs/arm64-v8a"
+PREFIX="${FFMPEG_LIB_PATH}/arm64-v8a"
 ./configure \
     --prefix=$PREFIX \
     --arch=aarch64 \
@@ -139,7 +141,7 @@ make clean
 
 # x86
 SYSROOT="${NDK_PATH}/platforms/android-16/arch-x86"
-PREFIX="android-libs/x86"
+PREFIX="${FFMPEG_LIB_PATH}/x86"
 ./configure \
     --prefix=$PREFIX \
     --arch=x86 \
@@ -162,3 +164,11 @@ ${TOOLCHAIN_PREFIX}/i686-linux-android-ld \
     ${GCC_PREFIX}/i686-linux-android/4.9.x/libgcc_real.a
 ${TOOLCHAIN_PREFIX}/i686-linux-android-strip  $PREFIX/libffmpeg.so
 make clean
+
+# Copy libffmpeg.so to library/libs
+echo "Start copy"
+LIBRARY_LIBS_PATH=../library/libs
+cp ${FFMPEG_LIB_PATH}/arm64-v8a/libffmpeg.so   ${LIBRARY_LIBS_PATH}/arm64-v8a/libffmpeg.so
+cp ${FFMPEG_LIB_PATH}/armeabi-v7a/libffmpeg.so ${LIBRARY_LIBS_PATH}/armeabi-v7a/libffmpeg.so
+cp ${FFMPEG_LIB_PATH}/x86/libffmpeg.so         ${LIBRARY_LIBS_PATH}/x86/libffmpeg.so
+echo "End copy"
