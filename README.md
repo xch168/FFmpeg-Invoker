@@ -1,3 +1,5 @@
+
+
 # FFmpeg-Invoker
 FFmpeg invoker
 
@@ -19,7 +21,7 @@ android {
 ## Usage
 ```java
 // you can use FFmpegCmd to build an ffmpeg command
-// For example: ffmpeg -y -ss 1 -t 100 -accurate_seek -i + videoPath + -codec copy + savePath
+// For example: ffmpeg -y -ss 1 -t 500 -accurate_seek -i + videoPath2 + -codec copy + savePath
 FFmpegCmd cmd = new FFmpegCmd();
 cmd.append("-ss").append(1);
 cmd.append("-t").append(500);
